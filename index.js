@@ -1,8 +1,11 @@
 // const http = require('http')
 const express = require('express')
 const path = require('path')
+const bodyParser = require("body-parser");
 
 const app = express()
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const port = 5000
 const host = '192.168.1.101'
@@ -36,7 +39,7 @@ app.get('/dev', (req, res) => {
 
 	res.sendFile(path.join(__dirname, `${pages}game.html`))
 
-	/* //Log call
+	/* //Log calls
 	let reqIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress
 	let reqISOString = new Date().toISOString()
 	let s = reqISOString.split('T');
@@ -62,7 +65,21 @@ app.get('/index', (req, res) => {
 	console.debug(`${reqTimeStamp} ==> ${req.method} request on route ${req.url} accessed by ${reqIP} `) */
 })
 
+app.post('/debug', (req, res) => {
+	res.send('received')
 
+	console.debug(req.body)
+
+	logCall(req)
+
+	/* ///Log call
+	let reqIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+	let reqISOString = new Date().toISOString()
+	let s = reqISOString.split('T');
+	let reqTimeStamp = '(' + s[0] + ')' + ' ' + s[1]; 
+
+	console.debug(`${reqTimeStamp} ==> ${req.method} request on route ${req.url} accessed by ${reqIP} `) */
+})
 
 app.listen(port, host, () => {
 	console.log(`Express JS listening at ${host} on port ${port}`)
