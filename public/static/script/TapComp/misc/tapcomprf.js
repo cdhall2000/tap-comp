@@ -1,4 +1,6 @@
 //This is a code cleanup doc. Not for use
+// @ts-check
+
 
 console.debug("tapcomp.js beginning of script");
 ////
@@ -114,7 +116,7 @@ console.debug('tapcomp.js entry');
 
 
 class TapGame {
-	constructor(increment = 0.01, use_history = false, gv) {
+	constructor(increment: Number , use_history = false, gv) {
 		this.increment = increment;
 
 		this.tic = 0;
