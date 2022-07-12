@@ -8,8 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const port = 5000
-const host = '192.168.1.101'
-
+//const host = '0.0.0.0'
 
 const pages = '/public/html/'
 const static = '/public/static'
@@ -81,7 +80,7 @@ app.post('/debug', (req, res) => {
 	console.debug(`${reqTimeStamp} ==> ${req.method} request on route ${req.url} accessed by ${reqIP} `) */
 })
 
-app.listen(port, host, () => {
+app.listen(port, host=null, () => {
 	console.log(`Express JS listening at ${host} on port ${port}`)
 })
 
