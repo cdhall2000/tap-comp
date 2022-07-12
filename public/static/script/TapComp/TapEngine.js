@@ -1,8 +1,14 @@
+//@ts-check
+
+
+
 export default class TapEngine {
+    start: String;
+
     constructor(){
-        this.var = 'started'
+        this.start = 'started'
     }
-    run(){
+    run(): Number{
         this.var = 'running'
         return this.var
     }

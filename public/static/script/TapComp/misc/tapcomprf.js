@@ -1,6 +1,4 @@
-//This is a code cleanup doc. Not for use
-// @ts-check
-
+//This is a code cleanup doc. Not for u
 
 console.debug("tapcomp.js beginning of script");
 ////
