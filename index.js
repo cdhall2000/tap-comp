@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 // const http = require('http')
 const express = require('express')
 const path = require('path')
@@ -92,3 +93,20 @@ function logCall(req) {
 
 	console.debug(`${reqTimeStamp} ==> '${req.method}' from ${reqIP} to '${req.url}'`)
 }
+=======
+const http = require('http')
+const express = require('express')
+
+const app = express()
+const port = 5000
+const host = '0.0.0.0'
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+  console.log('/ was accessed...')
+})
+
+app.listen(port, host, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+>>>>>>> Stashed changes
