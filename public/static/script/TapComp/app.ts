@@ -3,7 +3,6 @@ console.debug(`apps.js- beginning of script`);
 
 import { TapEngine } from './TapEngine.js'
 
-
 //Variable Declarations
 
 /* 

@@ -1,7 +1,7 @@
 "use strict";
 //@ts-check
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TapEngine = void 0;
+//Object.defineProperty(exports, "__esModule", { value: true });
+//exports.TapEngine = void 0;
 /**
  * The Tap Engine
  * @constructor
@@ -28,12 +28,14 @@ class TapEngine {
             throw new Error("c does not work");
         }
         let context = this.gv.getContext("2d");
-        if (typeof (context) != typeof (CanvasRenderingContext2D)) {
-            throw new Error("cant get context");
-        }
-        else {
+        if (context instanceof CanvasRenderingContext2D) {
             this.ctx = context;
         }
+        else {
+            throw new Error("cant get context");
+        }
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
         this.width = c.width;
         this.height = c.height;
         this.id = new Date().toISOString();
@@ -59,8 +61,8 @@ class TapEngine {
     }
     startGame() {
         //ToDO random game start stuff
-        this.drawAtPosition(this.getBarPerc());
-        this.IntervalID = setInterval(this.loop, this.msPerTic);
+        this.drawAtPosition(this.BarPos);
+        this.IntervalID = setInterval(() => {this.loop()}, this.msPerTic);
     }
     setFPS(targetFPS) {
         let msPerFrame = (1 / targetFPS) * 1000;
@@ -69,31 +71,30 @@ class TapEngine {
     }
     loop() {
         //get location
-        let bar = this.BarPos;
         /**Check if someone won */
-        if (bar >= this.height || bar <= 0) {
+        if (this.BarPos >= this.height || this.BarPos <= 0) {
             let winner;
             //player1
-            if (bar >= 0) {
+            if (this.BarPos >= 0) {
                 winner = this.player1.name;
             }
             //player2
-            if (bar <= 0) {
+            if (this.BarPos <= 0) {
                 winner = this.player2.name;
             }
             alert(`game over ${winner} is the winner!`);
             this.setBarPerc(0.5);
         }
         //If anything has changed
-        if (bar != this.lastBarPos) {
-            this.drawAtPosition(bar);
+        if (this.BarPos != this.lastBarPos) {
+            this.drawAtPosition(this.BarPos);
         }
-        this.lastBarPos = bar;
+        this.lastBarPos = this.BarPos;
         this.tic++;
     }
     touchStart(ev) {
         let touches = ev.touches;
-        let bp = this.BarPos;
+        let increase = (this.increment * this.height)
         for (var i = 0; i < touches.length; i++) {
             //process_touch(event.targetTouches[i])
             let touch = {
@@ -104,17 +105,16 @@ class TapEngine {
             };
             if (touch.Y < this.BarPos) {
                 //this.player1.tap()
-                bp += this.increment * this.height;
-                console.debug('increment increased');
+                
+                this.BarPos += increase;
+                console.debug(`'increment increased by ${increase}'`);
             }
             else if (touch.Y > this.BarPos) {
                 //this.player2.tap()
-                bp -= this.increment * this.height;
+                this.BarPos -= increase;
                 console.debug('increment decreased');
             }
         }
-        ;
-        this.BarPos = bp;
     }
     drawAtPosition(position) {
         console.debug('starting to draw');
@@ -152,19 +152,19 @@ class TapEngine {
         ctx.beginPath();
         ctx.font = '48px serif';
         ctx.fillStyle = 'black';
-        let fPerc = Number(this.getBarPerc()).toPrecision(2);
+        let fPerc = Number(this.getBarPerc()*100).toPrecision(2);
         ctx.fillText(`${fPerc} %`, (this.width / 2) - this.width / 5, position - 10);
         ctx.closePath();
         //draw p2 percent
         ctx.beginPath();
         ctx.font = '48px serif';
         ctx.fillStyle = 'black';
-        ctx.fillText(`${(100 - this.getBarPerc())}%`, this.width / 2, position + 40);
+        ctx.fillText(`${(100 - (fPerc))} %`, this.width / 2, position + 40);
         ctx.closePath();
         console.debug('draw done');
     }
 }
-exports.TapEngine = TapEngine;
+
 class Player {
     constructor(name, color) {
         this.name = name;

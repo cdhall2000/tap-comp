@@ -1,17 +1,23 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+//const { TapEngine } = require("./TapEngine.js");
+
+//Object.defineProperty(exports, "__esModule", { value: true });
 //@ts-check
 console.debug(`apps.js- beginning of script`);
-const TapEngine_js_1 = require("./TapEngine.js");
+//const TapEngine_js_1 = require("./TapEngine.js");
+
+//import TapEngine from './TapEngine.js' as TapEngine_js_1;
+
 //Variable Declarations
 /*
 //Variables
  */
+
+
 var gEngine;
-gEngine = new TapEngine_js_1.TapEngine('thegame');
+gEngine = new TapEngine('thegame');
 gEngine.gv.width = document.body.clientWidth; //document.width is obsolete
 gEngine.gv.height = document.body.clientHeight; //document.height is obsolete
-gEngine.increment = 0.05;
+gEngine.increment = 0.01;
 gEngine.startGame();
 /*
 
