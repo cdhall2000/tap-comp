@@ -18,11 +18,11 @@
             border: 0px;
         }
     </style>
-    
+    <script src="/static/script/TapComp/TapEngine.js"></script>
     
     
 </head>
-<body>
+<body onload="startGame()">
     <!-- <div class="title" style="visibility: hidden;">
         <h2>Tap Competition</h2>
     </div> -->
@@ -31,10 +31,9 @@
     <div class="gameContainer">
         <canvas id="thegame">
         </canvas>
+        <canvas id="finger" style="position: absolute; left: 0; top: 0; z-index: 1; visibility: hidden;">
+        </canvas>
     </div>
-    
-    <script src="/static/script/TapComp/TapEngine.js"></script>
-    <script src="/static/script/TapComp/app.js"></script>
 </body>
 
 </html>

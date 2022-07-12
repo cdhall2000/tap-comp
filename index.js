@@ -65,7 +65,7 @@ app.get('/index', (req, res) => {
 })
 
 app.post('/debug', (req, res) => {
-	res.send('received')
+	res.send(req.body)
 
 	console.debug(req.body)
 
